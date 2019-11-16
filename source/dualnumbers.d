@@ -486,6 +486,44 @@ unittest
     assert(approxEqual(result.du, -1.0));
 }
 
+/* Trigonometric functions */
+
+/** Sinus function on dual numbers.
+
+    Params: x = A dual number.
+    Returns: sin(x)
+*/
+Dual!T sin(T)(Dual!T x)  @safe pure nothrow @nogc
+{
+    import std.math: sin, cos;
+    Dual!T result = void;
+    result.re = sin(x.re);
+    result.du = x.du * cos(x.re);
+    return result;
+}
+
+///
+unittest
+{
+    import std.math;
+    // f(x) = sin(x), f'(x) = cos(x)
+    auto x = dual(0.0, 1.0);
+    auto result = sin(x);
+    assert(approxEqual(result.re, 0.0)); // sin(0) = 0
+    assert(approxEqual(result.du, 1.0)); // cos(0) = 1
+
+    x = dual(PI / 2.0, 1.0);
+    result = sin(x);
+    assert(approxEqual(result.re, 1.0)); // sin(π/2) = 1
+    assert(approxEqual(result.du, 0.0)); // cos(π/2) = 0
+
+    // f(x) = sin(3x), f'(x) = 3cos(3x)
+    x = dual(5.0, 1.0);
+    result = sin(3 * x);
+    assert(approxEqual(result.re, std.math.sin(15.0)));
+    assert(approxEqual(result.du, 3.0 * std.math.cos(15.0)));
+}
+
 /* Test constructors */
 
 // Works with floating point types
