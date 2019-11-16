@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"René Heldmaier and others (see individual files)"
+	],
+	"copyright": "Copyright © 2019, René Heldmaier and others (see individual files)",
+	"description": "A dual number type for automatic differentation.",
+	"license": "Boost License 1.0",
+	"name": "dualnumbers"
+}

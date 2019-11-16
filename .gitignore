@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/dualnumbers
+dualnumbers.so
+dualnumbers.dylib
+dualnumbers.dll
+dualnumbers.a
+dualnumbers.lib
+dualnumbers-test-*
+*.exe
+*.o
+*.obj
+*.lst
