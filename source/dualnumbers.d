@@ -401,24 +401,27 @@ struct Dual(T) if (isFloatingPoint!T)
 */
 unittest
 {
-    import std.math: approxEqual;
+    import std.math;
     // f(x) = x⁵ f'(x) = 5x⁴ for x = 2
     const x = Dual!double(2.0, 1.0);
     auto f2 = x^^5;
-    assert(f2.re.approxEqual(2.0^^5) && f2.du.approxEqual(5.0*2.0^^4));
+    assert(approxEqual(f2.re, 2.0^^5));
+    assert(approxEqual(f2.du, 5.0 * 2.0^^4));
 
     // f(x) = 3x² f'(x) = 6x for x = 2
     f2 = 3.0 * x * x;
-    assert(approxEqual(f2.re, 3.0*2.0*2.0) && approxEqual(f2.du, 6.0*2.0));
+    assert(approxEqual(f2.re, 3.0 * 2.0 * 2.0));
+    assert(approxEqual(f2.du, 6.0 * 2.0));
 
     // f(x) = 3/(1-x) f'(x) = 3/(1-x)^2 for x = 2
     f2 = 3.0/(1.0 - x);
-    assert(f2.re.approxEqual(-3.0) && f2.du.approxEqual(3.0));
+    assert(approxEqual(f2.re, -3.0));
+    assert(approxEqual(f2.du, 3.0));
 
     // f(x) = 3exp(2x), f'(x) = 6exp(2x) for x = 2
     f2 = 3 * exp(2 * x);
-    import std.math: exp;
-    assert(f2.re.approxEqual(3 * exp(4.0)) && f2.du.approxEqual(6 * exp(4.0)));
+    assert(approxEqual(f2.re, 3 * std.math.exp(4.0)));
+    assert(approxEqual(f2.du, 6 * std.math.exp(4.0)));
 }
 
 /** Exponential function on dual numbers.
@@ -438,15 +441,17 @@ Dual!T exp(T)(Dual!T x)  @safe pure nothrow @nogc
 ///
 unittest
 {
-    import std.math: approxEqual;
+    import std.math;
     // f(x) = exp(x), f'(x) = exp(x)
     auto x = dual(5.0, 1.0);
     auto res = x.exp();
-    assert(res.re.approxEqual(res.du));
+    assert(approxEqual(res.re, std.math.exp(5.0)));
+    assert(approxEqual(res.du, std.math.exp(5.0)));
 
     // f(x) = exp(3x), f'(x) = 3*exp(3x)
     res = exp(3 * x);
-    assert(res.du.approxEqual(3 * res.re));
+    assert(approxEqual(res.re, std.math.exp(15.0)));
+    assert(approxEqual(res.du, 3 * std.math.exp(15.0)));
 }
 
 /** Abs function on dual numbers.
@@ -467,15 +472,16 @@ Dual!T abs(T)(Dual!T x)  @safe pure nothrow @nogc
 unittest
 {
     import std.math: approxEqual;
-    // f(x) = |x|, f'(x) = 1 when x positive
+    // f(x) = |x|, f'(x) = signum(x)
     auto x = dual(2.0, 1.0);
     auto result = abs(x);
-    assert(approxEqual(result.re, 2.0) && approxEqual(result.du, 1.0));
+    assert(approxEqual(result.re, 2.0)); // f(2) = 2
+    assert(approxEqual(result.du, 1.0)); // f'(2) = 1
 
-    // f'(x) = -1 when x negative
     x = dual(-2.0, 1.0);
     result = abs(x);
-    assert(approxEqual(result.re, 2.0) && approxEqual(result.du, -1.0));
+    assert(approxEqual(result.re, 2.0)); // f(-2) = 2
+    assert(approxEqual(result.du, -1.0)); // f'(-2) = -1
 
     // because floating point numbers have -0 and +0 f'(x) is defined for x = 0
     x = dual(0.0, 1.0);
