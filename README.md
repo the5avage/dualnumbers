@@ -1,7 +1,7 @@
 # dualnumbers
 >A dual number type for automatic differentiation.
 
-[![Coverage Status](https://coveralls.io/repos/github/the5avage/dualnumbers/badge.svg?branch=master)](https://coveralls.io/github/the5avage/dualnumbers?branch=master)
+[![Build Status](https://travis-ci.org/the5avage/dualnumbers.svg?branch=master)](https://travis-ci.org/the5avage/dualnumbers)[![Coverage Status](https://coveralls.io/repos/github/the5avage/dualnumbers/badge.svg?branch=master)](https://coveralls.io/github/the5avage/dualnumbers?branch=master)
 
 ## Introduction
 Dual numbers are similar to complex numbers a pair of two numbers. A dual number is written as a + &epsi;b, where a is 
