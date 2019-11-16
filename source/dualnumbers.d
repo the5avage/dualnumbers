@@ -449,6 +449,43 @@ unittest
     assert(res.du.approxEqual(3 * res.re));
 }
 
+/** Abs function on dual numbers.
+
+    Params: x = A dual number.
+    Returns: |x|
+*/
+Dual!T abs(T)(Dual!T x)  @safe pure nothrow @nogc
+{
+    import std.math: signbit;
+    if (signbit(x.re))
+        return -x;
+    else
+        return x;
+}
+
+///
+unittest
+{
+    import std.math: approxEqual;
+    // f(x) = |x|, f'(x) = 1 when x positive
+    auto x = dual(2.0, 1.0);
+    auto result = abs(x);
+    assert(approxEqual(result.re, 2.0) && approxEqual(result.du, 1.0));
+
+    // f'(x) = -1 when x negative
+    x = dual(-2.0, 1.0);
+    result = abs(x);
+    assert(approxEqual(result.re, 2.0) && approxEqual(result.du, -1.0));
+
+    // because floating point numbers have -0 and +0 f'(x) is defined for x = 0
+    x = dual(0.0, 1.0);
+    result = abs(x);
+    assert(approxEqual(result.du, 1.0));
+    x = dual(-0.0, 1.0);
+    result = abs(x);
+    assert(approxEqual(result.du, -1.0));
+}
+
 /* Test constructors */
 
 // Works with floating point types
