@@ -12,8 +12,8 @@
     calculation the dual part contains the derivate.
 
     See_Also:
-        en.wikipedia.org/wiki/Dual_number
-        en.wikipedia.org/wiki/Automatic_differentiation#Automatic_differentiation_using_dual_numbers
+        https://en.wikipedia.org/wiki/Dual_number
+        https://en.wikipedia.org/wiki/Automatic_differentiation#Automatic_differentiation_using_dual_numbers
 
     Current_limitations:
         "^^" operator works only for integral numbers.
