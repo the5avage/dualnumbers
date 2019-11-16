@@ -22,6 +22,7 @@
     Authors:    René Heldmaier and others (see individual files)
     Copyright:  Copyright (c) 2019, René Heldmaier and others (see individual files)
     License:    $(HTTP boost.org/LICENSE_1_0.txt, Boost License 1.0)
+    Source:     https://github.com/the5avage/dualnumbers
 */
 
 /* The functions
