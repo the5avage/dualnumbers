@@ -7,9 +7,9 @@
     part will be identically to the result of a calculation with floating
     point numbers. Comparison operations (opCmp) ignore the value of the dual part.
 
-    To calculate the derivate with respect to a variable, set the dual part
+    To calculate the derivative with respect to a variable, set the dual part
     of this variable to 1. All other dual parts should be 0. After the
-    calculation the dual part contains the derivate.
+    calculation the dual part contains the derivative.
 
     See_Also:
         https://en.wikipedia.org/wiki/Dual_number
