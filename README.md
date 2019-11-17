@@ -26,7 +26,6 @@ There are also some [examples](https://dualnumbers.dpldocs.info/dualnumbers.Dual
 ## Current Limitations
 
 * ^^ operator only works for integral exponents
-* No trigonometric functions
 
 ## Contributing
 

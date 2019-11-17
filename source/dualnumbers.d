@@ -17,7 +17,6 @@
 
     Current_limitations:
         "^^" operator works only for integral numbers.
-        No trigonomertic functions.
 
     Authors:    René Heldmaier and others (see individual files)
     Copyright:  Copyright (c) 2019, René Heldmaier and others (see individual files)
