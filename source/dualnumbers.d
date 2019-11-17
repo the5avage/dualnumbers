@@ -530,6 +530,42 @@ unittest
     assert(approxEqual(result.du, 3.0 * std.math.cos(15.0)));
 }
 
+/** Cosinus function on dual numbers.
+
+    Params: x = A dual number.
+    Returns: cos(x)
+*/
+Dual!T cos(T)(Dual!T x)  @safe pure nothrow @nogc
+{
+    import std.math: sin, cos;
+    Dual!T result = void;
+    result.re = cos(x.re);
+    result.du = -x.du * sin(x.re);
+    return result;
+}
+
+///
+unittest
+{
+    import std.math;
+    // f(x) = cos(x), f'(x) = -sin(x)
+    auto x = dual(0.0, 1.0);
+    auto result = cos(x);
+    assert(approxEqual(result.re, 1.0)); // cos(0) = 1
+    assert(approxEqual(result.du, 0.0)); // -sin(0) = 0
+
+    x = dual(PI / 2.0, 1.0);
+    result = cos(x);
+    assert(approxEqual(result.re, 0.0)); // cos(π/2) = 0
+    assert(approxEqual(result.du, -1.0)); // -sin(π/2) = -1
+
+    // f(x) = cos(3x), f'(x) = -3sin(3x)
+    x = dual(5.0, 1.0);
+    result = cos(3 * x);
+    assert(approxEqual(result.re, std.math.cos(15.0)));
+    assert(approxEqual(result.du, -3.0 * std.math.sin(15.0)));
+}
+
 /* Test constructors */
 
 // Works with floating point types
